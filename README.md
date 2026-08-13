@@ -1,95 +1,25 @@
-# Introduction
+# Emergency in space
 
-The R-machine is a fairly simple RISC CPU that can be emulated in software, intended to help students learn about computer architecture, machine code, assembly language, and related concepts.
+![Gophers floating in space](img/space-gophers.webp)
 
-# Architecture
+Welcome to the Situation Room, _YOUR NAME_. Thank you for coming in at such short notice. Eleven hours and sixteen minutes ago, our scientists lost contact with the Trailblazer 1 probe, en route to Proxima Centauri. Since then we've been trying without success to re-establish contact with the spacecraft's onboard computer. Unless the fault can be rectified, and soon, we are facing a total loss of the vehicle and mission.
 
-The 32-bit version of the R-machine (abbreviated *TRM32*) has the following 32-bit registers:
+The problem appears to be localised to a subsystem known as the _RTFM_ (Remote Telemetry and Flight Management) computer, responsible for the communications link between the spacecraft and Earth. Engineers are speculating that its memory may have been corrupted by a cosmic ray impact, causing the software to malfunction.
 
-| ID | Name    | Purpose |
-| -- | --------| ------- |
-| 0000 | `x0` | Always zero |
-| 0001 - 1101 | `a0`-`a13` | User registers |
-| 1110 | `ra`    | Return address |
-| 1111 | `sp`    | Stack pointer |
+That's where you come in. We urgently need your help to investigate the RTFM software issue. Specifically, the first thing we need is a Go program that can execute code written for the spacecraft's onboard computer. A program like this is called an **emulator**: it acts like a model of the computer's central processing unit (**CPU**), and will enable us to write and test code before uploading it to the RTFM for real.
 
-# Instruction encoding
+You might also have heard the term **virtual machine**, meaning not “nearly a machine”, but something more like “not physically a machine, but behaving in the same way”. Emulator, virtual machine, same thing.
 
-Each instruction is 32 bits in length and must be aligned on a 4-byte boundary in memory.
+It may sound complicated, but emulators are actually fairly easy to write, once you understand how the emulated machine (the **guest**) works. The RTFM computer uses a relatively small and simple CPU, compared to the one in your computer (the **host** machine).
 
-Instructions have the following format:
+This CPU is called the **R8**, and to emulate it, you'll be writing the necessary Go code to implement the R8's **instruction set**: the commands it understands.
 
-| Bits    | Subfield |
-| --------| ------- |
-| 0-4     | Opcode |
-| 5-8     | Destination register ID (*rd*) |
-| 9-12    | Source register 1 ID (*rs1*) |
-| 13-16   | Source register 2 ID (*rs2*) |
-| 17-31   | Immediate value (*imm*) |
+The first thing the emulator needs is a properly-initialised CPU, ready to work. So you can call `Cpu::default()` to get a CPU in its default initial state, which is specified by a test.
 
-The instructions are as follows:
+The `Cpu` struct and its test are already implemented in the [`src/lib.rs`](src/lib.rs) file, so your first challenge is a straightforward one:
 
-| Opcode  | Instruction | Description |
-| --------| ------- |-----|
-| 00000 | - | Invalid instruction |
-| 00001 | LI | Set *rd* to *imm* |
-| 00000 | ADD | Add *imm* to *rs1*+*rs2* |
-| 00000 | AND | Bitwise AND *rs1* with *rs2* |
-| 00000 | ANDI | Bitwise AND *rs1* with *imm* |
-| 00000 | OR | Bitwise OR *rs1* with *rs2* |
-| 00000 | ORI | Bitwise OR *rs1* with *imm* |
-| 00000 | XOR | Bitwise XOR *rs1* with *rs2* |
-| 00000 | XORI | Bitwise XOR *rs1* with *imm* |
-| 00000 | SUB | Subtract *imm*+*rs2* from *rs1* |
-| 00000 | SHL | Shift *rs1* left by *rs2*+*imm* bits |
-| 00000 | SHR | Shift *rs1* right by *rs2*+*imm* bits |
-| 00000 | JMP | Unconditional jump to `pc`+*imm* |
-| 00000 | JMPL | Unconditional jump to 32-bit address in next word |
-| 00000 | RET | Return to address saved in *ra* from previous jump |
-| 00000 | BEQ | Conditional branch to `pc`+*imm* if *rs1* == *rs2* |
-| 00000 | BNE | Conditional branch to `pc`+*imm* if *rs1* != *rs2* |
-| 00000 | BLT | Conditional branch to `pc`+*imm* if *rs1* < *rs2* |
-| 00000 | BGE | Conditional branch to `pc`+*imm* if *rs1* >= *rs2* |
-| 00000 | PUSH | Push value in *rs1* to stack, adjusting *sp* |
-| 00000 | POP | Move value from stack to *rd*, adjusting *sp* |
-| 00000 | LOAD | Copy value from memory address *imm*+*rs1*+*rs2* |
-| 00000 | STORE | Copy value from *rs2* to memory address *imm*+*rs1*+*rs2* |
-| 00000 | ECALL | Make a call to the surrounding execution environment |
-| 00000 | EBREAK | Transfer control back to debugging environment |
-| 00000 | - | Unused |
+**GOAL:** Run the test with `cargo test`, and make sure it passes.
 
-# Examples
+That's a great start! For the next challenge, read the tutorial:
 
-Print the character 'a' to the serial device:
-
-```
-    li a0, 'a' ; load a0 with character 'a'
-    li a7, 1   ; system call number 1 ('putchar')
-    ecall      ; execute system call
-    ebreak     ; exit to debugger
-```
-
-Print the string "hello world" to the serial device:
-
-```
-    load a1, helloworld ; address of first char
-    add a2, a1, 12      ; address of last char
-    li a7, 1            ; system call number 1 ('putchar')
-.loop
-    load a0, a1, 0      ; next character
-    ecall               ; execute system call
-    add a1, a1, 1       ; increment 'next char' pointer
-    bne a1, a2, loop    ; loop until end
-    ebreak              ; exit
-
-.helloworld
-    data "Hello world!"
-```
-
-# Notes
-
-https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf
-
-https://marz.utk.edu/my-courses/cosc230/book/example-risc-v-assembly-programs/
-
-https://users.sussex.ac.uk/~mfb21/compilers/slides/11-handout.pdf
+* [Welcome to the machine: emulating a CPU](https://bitfieldconsulting.com/posts/welcome-to-machine)
