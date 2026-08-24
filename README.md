@@ -6,13 +6,13 @@ Welcome to the Situation Room, _YOUR NAME_. Thank you for coming in at such shor
 
 The problem appears to be localised to a subsystem known as the _RTFM_ (Remote Telemetry and Flight Management) computer, responsible for the communications link between the spacecraft and Earth. Engineers are speculating that its memory may have been corrupted by a cosmic ray impact, causing the software to malfunction.
 
-That's where you come in. We urgently need your help to investigate the RTFM software issue. Specifically, the first thing we need is a Go program that can execute code written for the spacecraft's onboard computer. A program like this is called an **emulator**: it acts like a model of the computer's central processing unit (**CPU**), and will enable us to write and test code before uploading it to the RTFM for real.
+That's where you come in. We urgently need your help to investigate the RTFM software issue. Specifically, the first thing we need is a Rust program that can execute code written for the spacecraft's onboard computer. A program like this is called an **emulator**: it acts like a model of the computer's central processing unit (**CPU**), and will enable us to write and test code before uploading it to the RTFM for real.
 
 You might also have heard the term **virtual machine**, meaning not “nearly a machine”, but something more like “not physically a machine, but behaving in the same way”. Emulator, virtual machine, same thing.
 
 It may sound complicated, but emulators are actually fairly easy to write, once you understand how the emulated machine (the **guest**) works. The RTFM computer uses a relatively small and simple CPU, compared to the one in your computer (the **host** machine).
 
-This CPU is called the **R8**, and to emulate it, you'll be writing the necessary Go code to implement the R8's **instruction set**: the commands it understands.
+This CPU is called the **R8**, and to emulate it, you'll be writing the necessary Rust code to implement the R8's **instruction set**: the commands it understands.
 
 The first thing the emulator needs is a properly-initialised CPU, ready to work. So you can call `Cpu::default()` to get a CPU in its default initial state, which is specified by a test.
 
