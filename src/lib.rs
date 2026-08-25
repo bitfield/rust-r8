@@ -36,8 +36,9 @@ mod tests {
     // #[test]
     // fn nop_instruction_increments_pc() {
     //     let mut cpu = Cpu::default();
-    //     cpu.mem[0] = NOP;
+    //     cpu.mem[256] = NOP;
+    //     cpu.pc = 256;
     //     cpu.step();
-    //     assert_eq!(cpu.pc, 1, "wrong PC after step()")
+    //     assert_eq!(cpu.pc, 257, "wrong PC after step()")
     // }
 }
