@@ -1,16 +1,14 @@
-pub const NOP: u8 = 1;
-
 #[derive(Debug)]
 pub struct Cpu {
-    pub pc: u16,
-    pub mem: [u8; 65536],
+    pub pc: i32,
+    pub mem: [i32; 256],
 }
 
 impl Default for Cpu {
     fn default() -> Self {
         Self {
             pc: 0,
-            mem: [0; 65536],
+            mem: [0; 256],
         }
     }
 }
@@ -33,12 +31,11 @@ mod tests {
     }
 
     // Uncomment this test once the previous test passes!
-    // #[test]
-    // fn nop_instruction_increments_pc() {
-    //     let mut cpu = Cpu::default();
-    //     cpu.mem[256] = NOP;
-    //     cpu.pc = 256;
-    //     cpu.step();
-    //     assert_eq!(cpu.pc, 257, "wrong PC after step()")
-    // }
+    #[test]
+    fn nop_instruction_increments_pc() {
+        let mut cpu = Cpu::default();
+        cpu.mem[0] = 1;
+        cpu.step();
+        assert_eq!(cpu.pc, 1, "wrong PC after step()")
+    }
 }
