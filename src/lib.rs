@@ -1,7 +1,7 @@
 #[derive(Debug)]
 pub struct Cpu {
-    pub pc: i32,
-    pub mem: [i32; 256],
+    pub pc: usize,
+    pub mem: [usize; 256],
 }
 
 impl Default for Cpu {
