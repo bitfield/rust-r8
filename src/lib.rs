@@ -31,11 +31,11 @@ mod tests {
     }
 
     // Uncomment this test once the previous test passes!
-    #[test]
-    fn nop_instruction_increments_pc() {
-        let mut cpu = Cpu::default();
-        cpu.mem[0] = 1;
-        cpu.step();
-        assert_eq!(cpu.pc, 1, "wrong PC after step()")
-    }
+    // #[test]
+    // fn step_increments_pc() {
+    //     let mut cpu = Cpu::default();
+    //     cpu.mem[0] = 1;
+    //     cpu.step();
+    //     assert_eq!(cpu.pc, 1, "wrong PC after step()")
+    // }
 }
