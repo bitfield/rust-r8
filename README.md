@@ -2,7 +2,19 @@
 
 ![Gophers floating in space](img/space-gophers.webp)
 
-Welcome to the Situation Room, _YOUR NAME_. Thank you for coming in at such short notice. Eleven hours and sixteen minutes ago, our scientists lost contact with the Trailblazer 1 probe, en route to Proxima Centauri. Since then we've been trying without success to re-establish contact with the spacecraft's onboard computer. Unless the fault can be rectified, and soon, we are facing a total loss of the vehicle and mission.
+Eleven hours and sixteen minutes ago, our scientists lost contact with the Trailblazer 1 probe en route to Proxima Centauri. Since then we've been trying without success to re-establish contact with the spacecraft's onboard computer. If we can't rectify the problem, we may be faced with a total loss of the vehicle and mission.
+
+That's why we need your help.
+
+## Classified briefing
+
+Welcome to the Situation Room. Thank you for coming in at such short notice. Do you have coffee? Okay, then let's get right to it, because time is a factor.
+
+For the last 15 years Trailblazer has been sailing serenely through interstellar space, sending back valuable science data and engineering telemetry, as the mission team tested, checked, and rechecked all the onboard instruments in preparation for the probe's flyby through the Prox Cen system and its many interesting exoplanets.
+
+Then everything went dead.
+
+The binary data modulated onto the optical carrier signal suddenly changed from valid telemetry data to a meaningless string of 1s. Since we're still receiving the signal, we know the spacecraft is intact, powered, and with its communication laser aimed correctly towards Earth. Doppler radar data indicates that its trajectory is unchanged, making it unlikely that the craft was hit by a meteorite or space debris. It's just no longer able to talk to us.
 
 The problem appears to be localised to a subsystem known as the _RTFM_ (Remote Telemetry and Flight Management) computer, responsible for the communications link between the spacecraft and Earth. Engineers are speculating that its memory may have been corrupted by a cosmic ray impact, causing the software to malfunction.
 
