@@ -34,8 +34,9 @@ mod tests {
     // #[test]
     // fn step_increments_pc() {
     //     let mut cpu = Cpu::default();
-    //     cpu.mem[0] = 1;
     //     cpu.step();
-    //     assert_eq!(cpu.pc, 1, "wrong PC after step()")
+    //     assert_eq!(cpu.pc, 1, "wrong PC after step()");
+    //     cpu.step();
+    //     assert_eq!(cpu.pc, 2, "wrong PC after step()");
     // }
 }
