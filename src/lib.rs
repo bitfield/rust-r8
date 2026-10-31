@@ -1,14 +1,14 @@
 #[derive(Debug)]
 pub struct Cpu {
-    pub pc: usize,
     pub mem: [usize; 65536],
+    pub pc: usize,
 }
 
 impl Default for Cpu {
     fn default() -> Self {
         Self {
-            pc: 0,
             mem: [0; 65536],
+            pc: 0,
         }
     }
 }
